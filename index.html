@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merveille Afghan - Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="menu-container">
+
+        <!-- ---- HEADER ---- -->
+        <header class="menu-header">
+            <div class="header-content">
+                <!-- REPLACE: Chef illustration image here -->
+                <div class="logo-left">
+                    <!-- Using a fallback emoji for preview. Replaced when src is valid -->
+                    <img src="images/logos/chef-logo.png" alt="Chef Logo" class="chef-logo"
+                        onerror="this.outerHTML='<div style=\'font-size: 5rem; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;\'>🧑‍🍳</div>'">
+                </div>
+
+                <!-- REPLACE: Restaurant logo image here -->
+                <div class="logo-center">
+                    <!-- EDIT LOGO SRC: Change the src value below to your logo image path -->
+                    <img src="images/logos/restaurant-logo.png" alt="Restaurant Logo" class="restaurant-logo">
+                </div>
+            </div>
+        </header>
+
+        <div class="header-divider"></div>
+
+        <!-- ---- CATEGORY BUTTONS ---- -->
+        <div class="category-filters">
+            <button class="filter-btn active" data-filter="plats">
+                <!-- REPLACE: Category icon for PLATS here -->
+                <img src="images/icons/plats.png" alt="Plats Icon" class="btn-icon"
+                    onerror="this.outerHTML='<span style=\'font-size: 1.2rem;\'>🍴</span>'">
+                PLATS
+            </button>
+            <button class="filter-btn" data-filter="desserts">
+                <!-- REPLACE: Category icon for DESSERTS here -->
+                <img src="images/icons/desserts.png" alt="Desserts Icon" class="btn-icon"
+                    onerror="this.outerHTML='<span style=\'font-size: 1.2rem;\'>🧁</span>'">
+                DESSERTS
+            </button>
+        </div>
+
+        <!-- ---- MENU CARDS ---- -->
+        <div class="menu-grid">
+
+
+            <!-- 1DUPLICATE THIS CARD TO ADD NEW FOOD -->
+            <div class="menu-card" data-category="plats">
+                <div class="card-image-wrapper">
+                    <!-- REPLACE: Food image here -->
+                    <img src="images/foods/Kabulipulao.jpg" alt="Kabuli Pulao" class="food-image"
+                        onerror="this.style.display='none'">
+                </div>
+                <!-- EDIT: Content section -->
+                <div class="card-content">
+                    <h3 class="food-title">Kabuli Pulao</h3>
+                    <!-- REPLACE/EDIT: Food description here -->
+                    <p class="food-description">Riz afghan aux épices, aux carottes,<br>aux raisins secs et viande</p>
+                </div>
+                <!-- EDIT: Price -->
+                <div class="card-price-badge">
+                    <!-- REPLACE/EDIT: Item price here -->
+                    <span class="price-currency">€</span><span class="price-value">12</span>
+                </div>
+            </div>
+
+
+            <!-- 2DUPLICATE THIS CARD TO ADD NEW FOOD -->
+            <div class="menu-card" data-category="plats">
+                <div class="card-image-wrapper">
+                    <!-- REPLACE: Food image here -->
+                    <img src="images/foods/Biryani.png" alt="Biryani" class="food-image"
+                        onerror="this.style.display='none'">
+                </div>
+                <!-- EDIT: Content section -->
+                <div class="card-content">
+                    <h3 class="food-title">Biryani</h3>
+                    <!-- REPLACE/EDIT: Food description here -->
+                    <p class="food-description">Riz épicé afghan avec viande et légumes</p>
+                </div>
+                <!-- EDIT: Price -->
+                <div class="card-price-badge">
+                    <!-- REPLACE/EDIT: Item price here -->
+                    <span class="price-currency">€</span><span class="price-value">12</span>
+                </div>
+            </div>
+
+
+            <!-- 3DUPLICATE THIS CARD TO ADD NEW FOOD -->
+            <div class="menu-card" data-category="plats">
+                <div class="card-image-wrapper">
+                    <!-- REPLACE: Food image here -->
+                    <img src="images/foods/Zereshk.png" alt="Zereshk Pilauo avec Kofte" class="food-image"
+                        onerror="this.style.display='none'">
+                </div>
+                <!-- EDIT: Content section -->
+                <div class="card-content">
+                    <h3 class="food-title">Zereshk Pilauo avec Kofte</h3>
+                    <!-- REPLACE/EDIT: Food description here -->
+                    <p class="food-description">Riz afghan aux épices, aux carottes,<br>aux raisins secs et viande</p>
+                </div>
+                <!-- EDIT: Price -->
+                <div class="card-price-badge">
+                    <!-- REPLACE/EDIT: Item price here -->
+                    <span class="price-currency">€</span><span class="price-value">12</span>
+                </div>
+            </div>
+
+            <!-- 4DUPLICATE THIS CARD TO ADD NEW FOOD -->
+            <div class="menu-card" data-category="plats">
+                <div class="card-image-wrapper">
+                    <!-- REPLACE: Food image here -->
+                    <img src="images/foods/Manto.png" alt="Manto" class="food-image"
+                        onerror="this.style.display='none'">
+                </div>
+                <!-- EDIT: Content section -->
+                <div class="card-content">
+                    <h3 class="food-title">Manto</h3>
+                    <!-- REPLACE/EDIT: Food description here -->
+                    <p class="food-description">Raviolis afghans farcis de viande et d'oignons, servis avec une sauce
+                        épicée.<br>
+                        <br>Petite portion ..........................................€4
+                        <br>Grande portion ........................................€8
+                    </p>
+                </div>
+                <!-- EDIT: Price -->
+                <div class="card-price-badge">
+                    <!-- REPLACE/EDIT: Item price here -->
+                    <span class="price-currency">€</span><span class="price-value">8</span>
+                </div>
+            </div>
+
+            <!-- 5DUPLICATE THIS CARD TO ADD NEW FOOD -->
+            <div class="menu-card" data-category="plats">
+                <div class="card-image-wrapper">
+                    <!-- REPLACE: Food image here -->
+                    <img src="images/foods/Bolani.png" alt="Bolani" class="food-image"
+                        onerror="this.style.display='none'">
+                </div>
+                <!-- EDIT: Content section -->
+                <div class="card-content">
+                    <h3 class="food-title">Bolani</h3>
+                    <!-- REPLACE/EDIT: Food description here -->
+                    <p class="food-description">Galette afghane garnie d’un mélange de poireaux et de pommes de terre
+                        BIO, servie avec une sauce au fromage blanc à l’ail.</p>
+                </div>
+                <!-- EDIT: Price -->
+                <div class="card-price-badge">
+                    <!-- REPLACE/EDIT: Item price here -->
+                    <span class="price-currency">€</span><span class="price-value">5</span>
+                </div>
+            </div>
+
+
+            <!-- 6DUPLICATE THIS CARD TO ADD NEW FOOD -->
+            <div class="menu-card" data-category="plats">
+                <div class="card-image-wrapper">
+                    <!-- REPLACE: Food image here -->
+                    <img src="images/foods/german.jpg" alt="GERMAN ROLL" class="food-image"
+                        onerror="this.style.display='none'">
+                </div>
+                <!-- EDIT: Content section -->
+                <div class="card-content">
+                    <h3 class="food-title">GERMAN ROLL</h3>
+                    <!-- REPLACE/EDIT: Food description here -->
+                    <p class="food-description">Poulet & Légumes Croquants.
+                        <br>Blanc de poulet, chou, carottes, poivrons, oignons.
+                        <br>Parfumé aux herbes fraîches et épices douces, Servi avec sa sauce.<br>
+                        <br>1 pièce ......................................................... 2 €
+                        <br>3 pièces ....................................................... 5 €
+                        <br>6 pièces ..................................................... 10 €
+                    </p>
+                </div>
+                <!-- EDIT: Price -->
+                <div class="card-price-badge">
+                    <!-- REPLACE/EDIT: Item price here -->
+                    <span class="price-currency">€</span><span class="price-value">2</span>
+                </div>
+            </div>
+
+
+            <!-- DESSERT CARD EXAMPLE (hidden by default) -->
+            <!-- DUPLICATE THIS CARD TO ADD NEW DESSERT -->
+            <!-- 2DUPLICATE THIS CARD TO ADD NEW DESSERT -->
+            <div class="menu-card" data-category="desserts" style="display: none;">
+                <div class="card-image-wrapper">
+                    <!-- REPLACE: Food image here -->
+                    <img src="images/foods/croc.png" alt="CROC-LUNE" class="food-image"
+                        onerror="this.style.display='none'">
+                </div>
+                <!-- EDIT: Content section -->
+                <div class="card-content">
+                    <h3 class="food-title">CROC-LUNE</h3>
+                    <!-- REPLACE/EDIT: Food description here -->
+                    <p class="food-description">Pâtisserie Orientale Parfumée.
+                        <br>Beurre, œufs, farine, vanille, noix de coco et eau de fleur d'oranger.
+                        <br>Saupoudré de noix de coco.
+                        <br>Fait Maison
+                    </p>
+                </div>
+                <!-- EDIT: Price -->
+                <div class="card-price-badge">
+                    <!-- REPLACE/EDIT: Item price here -->
+                    <span class="price-currency">€</span><span class="price-value">3</span>
+                </div>
+            </div>
+
+
+            <!-- 3DESSERT CARD EXAMPLE -->
+            <div class="menu-card" data-category="desserts" style="display: none;">
+                <div class="card-image-wrapper">
+                    <!-- REPLACE: Food image here -->
+                    <img src="images/foods/Creamroll.jpg" alt="Cream roll" class="food-image"
+                        onerror="this.style.display='none'">
+                </div>
+                <!-- EDIT: Content section -->
+                <div class="card-content">
+                    <h3 class="food-title">Cream roll</h3>
+                    <!-- REPLACE/EDIT: Food description here -->
+                    <p class="food-description">Pâte feuilletée Crème vanillée Pistaches Cardamome.
+                        <br>1 pièce
+                    </p>
+                </div>
+                <!-- EDIT: Price -->
+                <div class="card-price-badge">
+                    <!-- REPLACE/EDIT: Item price here -->
+                    <span class="price-currency">€</span><span class="price-value">3</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
