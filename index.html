@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A high-end Afghan restaurant menu with a liquid glass mobile-app feel." />
+  <title>Liquid Glass Restaurant Menu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #17170f;
+      --ink: #fffaf0;
+      --muted: rgba(255, 250, 240, 0.72);
+      --soft: rgba(255, 250, 240, 0.52);
+      --line: rgba(255, 255, 255, 0.24);
+      --glass: rgba(255, 255, 255, 0.12);
+      --glass-strong: rgba(255, 255, 255, 0.18);
+      --glass-light: rgba(255, 255, 255, 0.64);
+      --amber: #ff9f1c;
+      --amber-strong: #ff7d00;
+      --leaf: #9bb86f;
+      --cream: #fff5e3;
+      --charcoal: #1c1a14;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+      --panel-radius: 30px;
+      --motion: 620ms cubic-bezier(0.2, 0.85, 0.22, 1);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100%;
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 18% 14%, rgba(155, 184, 111, 0.34), transparent 26rem),
+        radial-gradient(circle at 82% 8%, rgba(255, 159, 28, 0.24), transparent 28rem),
+        radial-gradient(circle at 70% 92%, rgba(184, 91, 35, 0.26), transparent 26rem),
+        linear-gradient(135deg, #11110c 0%, #242014 48%, #11100c 100%);
+      color: var(--ink);
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 16px;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      content: "";
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 82%);
+      pointer-events: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      width: 31rem;
+      height: 27rem;
+      border-radius: 41% 59% 64% 36% / 43% 47% 53% 57%;
+      filter: blur(3px);
+      opacity: 0.62;
+      transform: translate3d(0, 0, 0);
+      animation: blobFloat 18s ease-in-out infinite alternate, blobMorph 13s ease-in-out infinite;
+    }
+
+    .blob.one {
+      top: -8rem;
+      left: -7rem;
+      background: radial-gradient(circle at 36% 34%, rgba(255, 191, 91, 0.76), rgba(255, 123, 0, 0.16) 56%, transparent 72%);
+    }
+
+    .blob.two {
+      right: -12rem;
+      top: 8rem;
+      width: 34rem;
+      height: 34rem;
+      background: radial-gradient(circle at 40% 40%, rgba(182, 206, 132, 0.58), rgba(71, 97, 44, 0.18) 62%, transparent 74%);
+      animation-delay: -7s;
+    }
+
+    .blob.three {
+      left: 40%;
+      bottom: -18rem;
+      width: 40rem;
+      height: 33rem;
+      background: radial-gradient(circle at 48% 42%, rgba(255, 117, 46, 0.48), rgba(91, 45, 24, 0.13) 62%, transparent 76%);
+      animation-delay: -4s;
+    }
+
+    .orb {
+      position: absolute;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 999px;
+      background: var(--amber);
+      box-shadow: 0 0 30px rgba(255, 159, 28, 0.58);
+      opacity: 0.72;
+      animation: bead 9s ease-in-out infinite;
+    }
+
+    .orb.a {
+      top: 23%;
+      left: 38%;
+    }
+
+    .orb.b {
+      right: 18%;
+      bottom: 18%;
+      animation-delay: -4s;
+    }
+
+    .orb.c {
+      left: 8%;
+      bottom: 32%;
+      width: 0.55rem;
+      height: 0.55rem;
+      animation-delay: -7s;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 20;
+      width: 95%;
+      max-width: none;
+      transform: translateX(-50%);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(39, 38, 29, 0.42);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(26px) saturate(150%);
+      -webkit-backdrop-filter: blur(26px) saturate(150%);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      min-height: 68px;
+      padding: 0.55rem 1.15rem;
+    }
+
+    .logo-pair {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    .header-logo {
+      flex: 0 0 auto;
+      width: auto;
+      height: 3.65rem;
+      object-fit: contain;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 118px 0 86px;
+    }
+
+    .glass-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 760px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: var(--panel-radius);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06)),
+        rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(34px) saturate(148%);
+      -webkit-backdrop-filter: blur(34px) saturate(148%);
+    }
+
+    .glass-shell::before {
+      position: absolute;
+      inset: -1px;
+      z-index: 0;
+      content: "";
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.32), transparent 18rem),
+        radial-gradient(circle at 75% 30%, rgba(255, 159, 28, 0.16), transparent 19rem),
+        linear-gradient(115deg, rgba(255, 255, 255, 0.1), transparent 42%, rgba(255, 255, 255, 0.08));
+      pointer-events: none;
+    }
+
+    .glass-shell::after {
+      position: absolute;
+      top: -12%;
+      right: -5%;
+      z-index: 0;
+      width: 36rem;
+      height: 36rem;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 44% 56% 53% 47% / 45% 43% 57% 55%;
+      content: "";
+      opacity: 0.72;
+      animation: liquidLine 17s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+      gap: 2rem;
+      min-height: 560px;
+      padding: 5rem 3.2rem 1.6rem;
+    }
+
+    .hero-copy {
+      align-self: center;
+      max-width: 510px;
+      animation: revealUp 900ms ease both;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin: 0 0 1.1rem;
+      color: var(--amber);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .label::before {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: var(--amber);
+      box-shadow: 0 0 22px rgba(255, 159, 28, 0.64);
+      content: "";
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 4.75rem;
+      font-weight: 800;
+      line-height: 0.95;
+    }
+
+    .tagline {
+      display: block;
+      margin-top: 0.65rem;
+      color: var(--ink);
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .tagline span {
+      color: var(--amber);
+    }
+
+    .hero-copy p {
+      max-width: 28rem;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.72;
+    }
+
+    .swipe-cue {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 2.2rem;
+      color: rgba(255, 250, 240, 0.84);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .swipe-cue svg {
+      width: 1.45rem;
+      height: 1.45rem;
+      color: var(--amber);
+      animation: hintSwipe 1.9s ease-in-out infinite;
+    }
+
+    .dish-stage {
+      position: relative;
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      min-height: 480px;
+      isolation: isolate;
+    }
+
+    .dish-stage::before {
+      position: absolute;
+      width: 28rem;
+      height: 28rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      content: "";
+      animation: rotateSoft 34s linear infinite;
+    }
+
+    .dish-stage::after {
+      position: absolute;
+      width: 21rem;
+      height: 21rem;
+      border-radius: 999px;
+      background: conic-gradient(from 26deg, transparent 0 15%, rgba(255, 159, 28, 0.88) 15% 41%, transparent 41% 100%);
+      content: "";
+      filter: drop-shadow(0 20px 45px rgba(255, 125, 0, 0.28));
+      animation: rotateSoft 18s linear infinite reverse;
+      z-index: -1;
+    }
+
+    .hero-plate {
+      position: relative;
+      width: min(24rem, 78%);
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 12px solid rgba(255, 248, 232, 0.92);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      box-shadow:
+        0 32px 76px rgba(0, 0, 0, 0.34),
+        inset 0 0 32px rgba(255, 255, 255, 0.36);
+      animation: plateIn 1100ms cubic-bezier(0.2, 0.85, 0.22, 1) both;
+    }
+
+    .hero-plate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.04);
+    }
+
+    .mini-plate {
+      position: absolute;
+      top: 5.3rem;
+      left: 4.3rem;
+      width: 5.3rem;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 5px solid rgba(255, 248, 232, 0.94);
+      border-radius: 999px;
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.28);
+      animation: floatTiny 5.5s ease-in-out infinite;
+    }
+
+    .mini-plate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .menu-area {
+      position: relative;
+      z-index: 2;
+      padding: 0 2rem 2.2rem;
+    }
+
+    .category-dock {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      width: min(900px, calc(100% - 1rem));
+      margin: -2.7rem auto 1.35rem;
+      padding: 0.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.27);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(24px) saturate(145%);
+      -webkit-backdrop-filter: blur(24px) saturate(145%);
+    }
+
+    .dock-indicator {
+      position: absolute;
+      top: 0.7rem;
+      left: 0.7rem;
+      width: calc(50% - 0.7rem);
+      height: calc(100% - 1.4rem);
+      border-radius: 999px;
+      background: rgba(255, 250, 240, 0.92);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+      transition: transform var(--motion);
+      pointer-events: none;
+    }
+
+    .category-dock[data-active="1"] .dock-indicator {
+      transform: translateX(100%);
+    }
+
+    .dock-button {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      min-height: 4.4rem;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(255, 250, 240, 0.88);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      transition: color var(--motion);
+    }
+
+    .dock-button svg {
+      width: 2rem;
+      height: 2rem;
+      flex: 0 0 auto;
+      stroke-width: 1.8;
+    }
+
+    .dock-title {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .dock-count {
+      display: block;
+      margin-top: 0.18rem;
+      color: rgba(255, 250, 240, 0.7);
+      font-size: 0.83rem;
+      font-weight: 700;
+      transition: color var(--motion);
+    }
+
+    .dock-button.is-active {
+      color: #1c1a14;
+    }
+
+    .dock-button.is-active .dock-count {
+      color: var(--amber-strong);
+    }
+
+    .swiper {
+      overflow: visible;
+    }
+
+    .menu-swiper {
+      padding: 0.45rem 0 2.9rem;
+    }
+
+    .swiper-slide {
+      height: auto;
+      opacity: 0.35;
+      transform: scale(0.985);
+      transition: opacity var(--motion), transform var(--motion);
+    }
+
+    .swiper-slide-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .slide-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0 0 1rem 0.2rem;
+      color: rgba(255, 250, 240, 0.9);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .slide-title::before {
+      width: 0.72rem;
+      height: 0.72rem;
+      border-radius: 999px;
+      background: var(--amber);
+      box-shadow: 0 0 24px rgba(255, 159, 28, 0.64);
+      content: "";
+    }
+
+    .dish-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .dish-card {
+      overflow: hidden;
+      min-width: 0;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(22px) saturate(140%);
+      -webkit-backdrop-filter: blur(22px) saturate(140%);
+      cursor: pointer;
+      outline: none;
+      transition: transform var(--motion), background var(--motion), border-color var(--motion);
+    }
+
+    .dish-card:hover,
+    .dish-card:focus-visible {
+      border-color: rgba(255, 255, 255, 0.38);
+      background: rgba(255, 255, 255, 0.17);
+      transform: translateY(-6px);
+    }
+
+    .dish-image {
+      position: relative;
+      aspect-ratio: 1.28 / 1;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .dish-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 700ms ease;
+    }
+
+    .dish-card:hover .dish-image img {
+      transform: scale(1.06);
+    }
+
+    .dish-image::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background: linear-gradient(to bottom, transparent 46%, rgba(0, 0, 0, 0.28));
+      pointer-events: none;
+    }
+
+    .dish-content {
+      padding: 0.85rem 0.86rem 1rem;
+    }
+
+    .dish-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.55rem;
+    }
+
+    .dish-content h3 {
+      min-width: 0;
+      margin: 0;
+      color: #fffaf0;
+      font-size: 0.92rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .dish-price {
+      flex: 0 0 auto;
+      color: var(--amber);
+      font-size: 0.84rem;
+      font-weight: 900;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .dish-content p {
+      margin: 0.48rem 0 0;
+      color: rgba(255, 250, 240, 0.72);
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+
+    .dish-detail {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 420ms ease, visibility 420ms ease;
+      pointer-events: none;
+    }
+
+    .dish-detail.is-open {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    body.detail-open {
+      overflow: hidden;
+    }
+
+    .detail-backdrop {
+      position: absolute;
+      inset: 0;
+      border: 0;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(255, 190, 93, 0.32), transparent 26rem),
+        radial-gradient(circle at 78% 22%, rgba(201, 226, 184, 0.26), transparent 28rem),
+        radial-gradient(circle at 54% 92%, rgba(255, 125, 0, 0.22), transparent 24rem),
+        rgba(12, 12, 9, 0.66);
+      cursor: pointer;
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+    }
+
+    .detail-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1fr);
+      gap: 2rem;
+      width: min(920px, 100%);
+      max-height: min(760px, calc(100vh - 3rem));
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08)),
+        rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 40px 120px rgba(0, 0, 0, 0.56),
+        inset 0 1px 0 rgba(255, 255, 255, 0.32);
+      transform: translateY(24px) scale(0.96);
+      transition: transform 520ms cubic-bezier(0.2, 0.85, 0.22, 1);
+      backdrop-filter: blur(34px) saturate(155%);
+      -webkit-backdrop-filter: blur(34px) saturate(155%);
+    }
+
+    .dish-detail.is-open .detail-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .crystal-field {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .crystal-field::before,
+    .crystal-field::after,
+    .crystal-facet {
+      position: absolute;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 159, 28, 0.08));
+      box-shadow: inset 0 1px 20px rgba(255, 255, 255, 0.16);
+      content: "";
+      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.16));
+      clip-path: polygon(50% 0, 100% 32%, 82% 100%, 20% 86%, 0 30%);
+    }
+
+    .crystal-field::before {
+      top: -6rem;
+      right: -3rem;
+      width: 20rem;
+      height: 21rem;
+      transform: rotate(18deg);
+      opacity: 0.72;
+      animation: crystalDrift 12s ease-in-out infinite alternate;
+    }
+
+    .crystal-field::after {
+      bottom: -8rem;
+      left: 30%;
+      width: 24rem;
+      height: 19rem;
+      transform: rotate(-14deg);
+      opacity: 0.48;
+      animation: crystalDrift 15s ease-in-out infinite alternate-reverse;
+    }
+
+    .crystal-facet.one {
+      top: 14%;
+      left: 45%;
+      width: 7rem;
+      height: 8rem;
+      transform: rotate(30deg);
+      opacity: 0.46;
+    }
+
+    .crystal-facet.two {
+      right: 8%;
+      bottom: 13%;
+      width: 9rem;
+      height: 7rem;
+      transform: rotate(-22deg);
+      opacity: 0.4;
+    }
+
+    .detail-media,
+    .detail-copy,
+    .detail-close {
+      position: relative;
+      z-index: 1;
+    }
+
+    .detail-media {
+      min-height: 440px;
+      overflow: hidden;
+      border-right: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .detail-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+    }
+
+    .detail-media::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(to right, transparent 54%, rgba(17, 16, 12, 0.4)),
+        linear-gradient(to top, rgba(17, 16, 12, 0.3), transparent 46%);
+      pointer-events: none;
+    }
+
+    .detail-copy {
+      align-self: center;
+      padding: 4.4rem 3.3rem 3.4rem 0;
+    }
+
+    .detail-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0 0 0.95rem;
+      color: var(--amber);
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .detail-label::before {
+      width: 0.52rem;
+      height: 0.52rem;
+      border-radius: 999px;
+      background: currentColor;
+      box-shadow: 0 0 22px rgba(255, 159, 28, 0.62);
+      content: "";
+    }
+
+    .detail-copy h2 {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.25rem, 5vw, 4.4rem);
+      font-weight: 800;
+      line-height: 0.98;
+    }
+
+    .detail-description {
+      margin: 1.25rem 0 0;
+      color: rgba(255, 250, 240, 0.78);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .detail-price {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1.9rem 0 0;
+      min-height: 3.45rem;
+      padding: 0 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 999px;
+      background: rgba(255, 250, 240, 0.9);
+      color: #1c1a14;
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+      font-size: 1.1rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .detail-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: grid;
+      width: 3rem;
+      height: 3rem;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--ink);
+      cursor: pointer;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: background var(--motion), transform var(--motion);
+    }
+
+    .detail-close:hover,
+    .detail-close:focus-visible {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+      outline: none;
+    }
+
+    .detail-close svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .swiper-controls {
+      position: absolute;
+      right: 2.4rem;
+      bottom: 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 5;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: static;
+      display: grid;
+      width: 2.55rem;
+      height: 2.55rem;
+      margin: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--ink);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: background var(--motion), transform var(--motion), opacity var(--motion);
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+      font-size: 0.85rem;
+      font-weight: 900;
+    }
+
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .swiper-pagination {
+      position: static;
+      display: flex;
+      align-items: center;
+      width: auto;
+      gap: 0.34rem;
+    }
+
+    .swiper-pagination-bullet {
+      width: 0.48rem;
+      height: 0.48rem;
+      margin: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      opacity: 1;
+      transition: width var(--motion), background var(--motion);
+    }
+
+    .swiper-pagination-bullet-active {
+      width: 2.2rem;
+      background: var(--amber);
+    }
+
+    .mobile-tabs {
+      display: none;
+    }
+
+    body.detail-open .mobile-tabs {
+      transform: translateY(120%);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @keyframes blobFloat {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(4rem, 2.4rem, 0) rotate(12deg);
+      }
+    }
+
+    @keyframes blobMorph {
+      0%,
+      100% {
+        border-radius: 41% 59% 64% 36% / 43% 47% 53% 57%;
+      }
+      45% {
+        border-radius: 62% 38% 42% 58% / 58% 35% 65% 42%;
+      }
+      72% {
+        border-radius: 37% 63% 53% 47% / 39% 56% 44% 61%;
+      }
+    }
+
+    @keyframes liquidLine {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        border-radius: 44% 56% 53% 47% / 45% 43% 57% 55%;
+      }
+      50% {
+        transform: translate3d(-2.5rem, 2rem, 0) rotate(18deg);
+        border-radius: 61% 39% 37% 63% / 58% 35% 65% 42%;
+      }
+    }
+
+    @keyframes bead {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(1.4rem, -1.7rem, 0) scale(1.25);
+      }
+    }
+
+    @keyframes revealUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes plateIn {
+      from {
+        opacity: 0;
+        transform: scale(0.86) rotate(-10deg);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes rotateSoft {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes floatTiny {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
+      50% {
+        transform: translate3d(0.4rem, -1rem, 0);
+      }
+    }
+
+    @keyframes hintSwipe {
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(8px);
+      }
+    }
+
+    @keyframes crystalDrift {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(12deg) scale(1);
+      }
+      100% {
+        transform: translate3d(-1.4rem, 1rem, 0) rotate(24deg) scale(1.05);
+      }
+    }
+
+    @media (max-width: 1060px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding-top: 4.4rem;
+      }
+
+      .hero-copy {
+        max-width: 660px;
+      }
+
+      .dish-stage {
+        min-height: 410px;
+      }
+
+      .dish-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        background:
+          radial-gradient(circle at 15% 4%, rgba(255, 159, 28, 0.26), transparent 18rem),
+          radial-gradient(circle at 88% 7%, rgba(155, 184, 111, 0.26), transparent 18rem),
+          linear-gradient(145deg, #14130e 0%, #262114 56%, #11100c 100%);
+      }
+
+      .site-header {
+        top: 10px;
+        left: 50%;
+        width: 90%;
+        max-width: none;
+        transform: translateX(-50%);
+        border-radius: 26px;
+      }
+
+      .nav-inner {
+        min-height: 58px;
+        padding: 0.45rem 0.75rem;
+      }
+
+      .logo-pair {
+        gap: 0.72rem;
+      }
+
+      .header-logo {
+        height: 3rem;
+      }
+
+      .page {
+        width: 100%;
+        padding: 80px 10px 112px;
+      }
+
+      .glass-shell {
+        min-height: auto;
+        border-radius: 28px;
+      }
+
+      .glass-shell::after {
+        top: -5rem;
+        right: -13rem;
+        width: 28rem;
+        height: 28rem;
+      }
+
+      .hero {
+        display: block;
+        min-height: auto;
+        padding: 3.2rem 1.1rem 0;
+      }
+
+      .label {
+        margin-bottom: 0.75rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+      }
+
+      h1 {
+        font-size: 2.72rem;
+        line-height: 0.98;
+      }
+
+      .tagline {
+        margin-top: 0.45rem;
+        font-size: 1.48rem;
+        line-height: 1.16;
+      }
+
+      .hero-copy p {
+        margin-top: 1rem;
+        max-width: 20rem;
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      .swipe-cue {
+        margin-top: 1.35rem;
+        font-size: 0.82rem;
+      }
+
+      .dish-stage {
+        min-height: 210px;
+        margin-top: 0.15rem;
+      }
+
+      .dish-stage::before {
+        width: 13.8rem;
+        height: 13.8rem;
+      }
+
+      .dish-stage::after {
+        width: 10.8rem;
+        height: 10.8rem;
+      }
+
+      .hero-plate {
+        width: min(11.6rem, 54vw);
+        border-width: 7px;
+      }
+
+      .mini-plate {
+        top: 0.85rem;
+        left: 2rem;
+        width: 3.6rem;
+        border-width: 4px;
+      }
+
+      .menu-area {
+        padding: 0 0.65rem 1rem;
+      }
+
+      .category-dock {
+        display: none;
+      }
+
+      .slide-title {
+        margin-top: 0.2rem;
+        margin-bottom: 0.85rem;
+        font-size: 0.76rem;
+        letter-spacing: 0.14em;
+      }
+
+      .dish-grid {
+        grid-template-columns: 1fr;
+        gap: 0.72rem;
+      }
+
+      .dish-card {
+        display: grid;
+        grid-template-columns: 6.5rem minmax(0, 1fr);
+        min-height: 7rem;
+      }
+
+      .dish-card:hover {
+        transform: none;
+      }
+
+      .dish-image {
+        aspect-ratio: auto;
+        min-height: 100%;
+      }
+
+      .dish-content {
+        align-self: center;
+        padding: 0.8rem 0.84rem;
+      }
+
+      .dish-content h3 {
+        font-size: 0.93rem;
+      }
+
+      .dish-content p {
+        display: -webkit-box;
+        margin-top: 0.38rem;
+        overflow: hidden;
+        color: rgba(255, 250, 240, 0.76);
+        font-size: 0.77rem;
+        line-height: 1.45;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+      }
+
+      .swiper-controls {
+        position: static;
+        justify-content: center;
+        margin-top: 0.25rem;
+      }
+
+      .swiper-button-prev,
+      .swiper-button-next {
+        width: 2.8rem;
+        height: 2.8rem;
+      }
+
+      .mobile-tabs {
+        position: fixed;
+        right: 10px;
+        bottom: 12px;
+        left: 10px;
+        z-index: 25;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.45rem;
+        padding: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.27);
+        border-radius: 28px;
+        background: rgba(39, 38, 29, 0.58);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.36);
+        backdrop-filter: blur(28px) saturate(150%);
+        -webkit-backdrop-filter: blur(28px) saturate(150%);
+        transition: transform var(--motion);
+      }
+
+      .mobile-tab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        min-width: 0;
+        min-height: 3.6rem;
+        border: 0;
+        border-radius: 22px;
+        background: transparent;
+        color: rgba(255, 250, 240, 0.78);
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.86rem;
+        font-weight: 800;
+        white-space: nowrap;
+        transition: background var(--motion), color var(--motion), transform var(--motion);
+      }
+
+      .mobile-tab svg {
+        width: 1.35rem;
+        height: 1.35rem;
+      }
+
+      .mobile-tab.is-active {
+        background: rgba(255, 250, 240, 0.92);
+        color: #1b1913;
+      }
+
+      .mobile-tab:active {
+        transform: scale(0.98);
+      }
+
+      .dish-detail {
+        padding: 0.85rem;
+      }
+
+      .detail-card {
+        grid-template-columns: 1fr;
+        gap: 0;
+        width: 100%;
+        max-height: calc(100vh - 1.7rem);
+        overflow-y: auto;
+        border-radius: 28px;
+      }
+
+      .detail-media {
+        min-height: 0;
+        height: min(44vh, 22rem);
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .detail-media::after {
+        background: linear-gradient(to top, rgba(17, 16, 12, 0.48), transparent 52%);
+      }
+
+      .detail-copy {
+        padding: 1.35rem 1.25rem 1.55rem;
+      }
+
+      .detail-copy h2 {
+        font-size: clamp(2rem, 11vw, 3rem);
+      }
+
+      .detail-description {
+        margin-top: 0.95rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .detail-price {
+        min-height: 3rem;
+        margin-top: 1.2rem;
+        font-size: 1rem;
+      }
+
+      .detail-close {
+        top: 0.85rem;
+        right: 0.85rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .dish-card {
+        grid-template-columns: 5.6rem minmax(0, 1fr);
+      }
+
+      .dish-content {
+        padding: 0.7rem;
+      }
+
+      .dish-content p {
+        -webkit-line-clamp: 2;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <span class="blob one"></span>
+    <span class="blob two"></span>
+    <span class="blob three"></span>
+    <span class="orb a"></span>
+    <span class="orb b"></span>
+    <span class="orb c"></span>
+  </div>
+
+  <header class="site-header">
+    <div class="nav-inner">
+      <div class="logo-pair" aria-label="Restaurant logos">
+        <img class="header-logo chef-logo" src="images/logos/chef-logo.png" alt="Chef logo" />
+        <img class="header-logo restaurant-logo" src="images/logos/restaurant-logo.png" alt="Restaurant logo" />
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="glass-shell" aria-labelledby="restaurant-title">
+      <div class="hero">
+        <div class="hero-copy">
+         
+          <h1 id="restaurant-title">Merveille Afghan</h1>
+          <strong class="tagline">Là où le<span> goût</span> rencontre la perfection
+</strong>
+          <p>Découvrez une collection de plats exquis, préparés avec des ingrédients raffinés, une technique délicate et une touche de théâtre à votre table.</p>
+          <div class="swipe-cue" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 13.5h10.4m0 0-3.6-3.6m3.6 3.6-3.6 3.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.6 18.2A7.6 7.6 0 1 1 19 13.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+            </svg>
+            
+          </div>
+        </div>
+
+        <div class="dish-stage" aria-hidden="true">
+          <figure class="hero-plate">
+            <img src="images/foods/KabuliPulao.jpg" alt="" />
+          </figure>
+          <figure class="mini-plate">
+            <img src="images/foods/CROC-LUNE.png" alt="" />
+          </figure>
+        </div>
+      </div>
+
+      <section id="menu" class="menu-area" aria-label="Restaurant menu">
+        <div class="category-dock" data-active="0">
+          <span class="dock-indicator" aria-hidden="true"></span>
+          <button class="dock-button is-active" type="button" data-slide="0" aria-label="Show Plats dishes">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 17h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M6 17a6 6 0 0 1 12 0" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M12 7.2v2.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M9.3 8.1 8.1 6.7M14.7 8.1l1.2-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+            <span>
+              <span class="dock-title">Plats</span>
+              <span class="dock-count">6 plats</span>
+            </span>
+          </button>
+          <button class="dock-button" type="button" data-slide="1" aria-label="Show Desserts">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6.5 10h11l-1.1 9H7.6l-1.1-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              <path d="M8.4 10a3.6 3.6 0 0 1 7.2 0" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M10 5.5c.6-.8 1.1-1.35 1.1-2.5M14 5.5c-.6-.8-1.1-1.35-1.1-2.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+            <span>
+              <span class="dock-title">Desserts</span>
+              <span class="dock-count">5 desserts</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="swiper menu-swiper">
+          <div class="swiper-wrapper">
+            <article class="swiper-slide" aria-label="Plats category">
+              <h2 class="slide-title">Plats</h2>
+              <div class="dish-grid">
+                <article class="dish-card" role="button" tabindex="0" data-price="12€" aria-label="View Kabuli Pulao details">
+                  <div class="dish-image">
+                    <img src="images/foods/KabuliPulao.jpg" alt="Kabuli Pulao" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Kabuli Pulao</h3>
+                      <span class="dish-price">12€</span>
+                    </div>
+                    <p>Riz afghan aux épices, aux carottes, aux raisins secs et viande.</p>
+                  </div>
+                </article>
+
+                <article class="dish-card" role="button" tabindex="0" data-price="12€" aria-label="View Biryani details">
+                  <div class="dish-image">
+                    <img src="images/foods/Biryani.png" alt="Biryani" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Biryani</h3>
+                      <span class="dish-price">12€</span>
+                    </div>
+                    <p>Riz épicé afghan avec viande et légumes.</p>
+                  </div>
+                </article>
+
+                <article class="dish-card" role="button" tabindex="0" data-price="12€" aria-label="View Zereshk Pilau avec Kofte details">
+                  <div class="dish-image">
+                    <img src="images/foods/ZereshkPilauavecKofte.png" alt="Zereshk Pilau avec Kofte" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Zereshk Pilau avec Kofte</h3>
+                      <span class="dish-price">12€</span>
+                    </div>
+                    <p>Riz afghan aux épices, aux carottes, aux raisins secs et viande.</p>
+                  </div>
+                </article>
+
+                <article class="dish-card" role="button" tabindex="0" data-price="10€" aria-label="View Manto details">
+                  <div class="dish-image">
+                    <img src="images/foods/Manto.png" alt="Manto" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Manto</h3>
+                      <span class="dish-price">10€</span>
+                    </div>
+                    <p>Raviolis afghans farcis de viande et d'oignons, servis avec une sauce épicée. <br> (8 pièces)</p>
+                  </div>
+                </article>
+
+                <article class="dish-card" role="button" tabindex="0" data-price="5€" aria-label="View Bolani details">
+                  <div class="dish-image">
+                    <img src="images/foods/Bolani.png" alt="Bolani" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Bolani</h3>
+                      <span class="dish-price">5€</span>
+                    </div>
+                    <p>Galette afghane garnie d'un mélange de poireaux et de pommes de terre BIO, servie avec une sauce au fromage blanc à l'ail.</p>
+                  </div>
+                </article>
+
+                <article class="dish-card" role="button" tabindex="0" data-price="10€" aria-label="View German Roll details">
+                  <div class="dish-image">
+                    <img src="images/foods/GermanRoll.jpg" alt="German Roll" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>German Roll</h3>
+                      <span class="dish-price">10€</span>
+                    </div>
+                    <p>Poulet & Légumes Croquants, parfumé aux herbes fraîches et épices douces. <br> (6 pièces)</p>
+                  </div>
+                </article>
+              </div>
+            </article>
+
+            <article class="swiper-slide" aria-label="Desserts category">
+              <h2 class="slide-title">Desserts</h2>
+              <div class="dish-grid">
+                <article class="dish-card" role="button" tabindex="0" data-price="3€" aria-label="View Croc-Lune details">
+                  <div class="dish-image">
+                    <img src="images/foods/CROC-LUNE.png" alt="Croc-Lune" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Croc-Lune</h3>
+                      <span class="dish-price">3€</span>
+                    </div>
+                    <p>Pâtisserie Orientale Parfumée. Beurre, œufs, farine, vanille, noix de coco et fleur d'oranger. Fait Maison. <br> (1 pièce)</p>
+                  </div>
+                </article>
+
+                <article class="dish-card" role="button" tabindex="0" data-price="3€" aria-label="View Cookie Maison details">
+                  <div class="dish-image">
+                    <img src="images/foods/CookieMaison.jpg" alt="Cookie Maison" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Cookie Maison</h3>
+                      <span class="dish-price">3€</span>
+                    </div>
+                    <p>Chocolat, Noix & biscuits Speculoos Moelleux et généreux. <br> (1 pièce)</p>
+                  </div>
+                </article>
+
+                <article class="dish-card" role="button" tabindex="0" data-price="3€" aria-label="View Ferni details">
+                  <div class="dish-image">
+                    <img src="images/foods/Ferni.png" alt="Ferni" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Ferni</h3>
+                      <span class="dish-price">3€</span>
+                    </div>
+                    <p>Préparé à base de lait et de sucre, parfumé à la cardamome.</p>
+                  </div>
+                </article>
+
+                <article class="dish-card" role="button" tabindex="0" data-price="3€" aria-label="View Cornet à la Crème details">
+                  <div class="dish-image">
+                    <img src="images/foods/CORNETALACREME.jpg" alt="Cornet à la Crème" />
+                  </div>
+                  <div class="dish-content">
+                    <div class="dish-heading">
+                      <h3>Cornet à la Crème</h3>
+                      <span class="dish-price">3€</span>
+                    </div>
+                    <p>Pâte feuilletée Crème vanillée Pistaches Cardamome. <br> (1 pièce)</p>
+                  </div>
+                </article>
+
+             
+
+              </div>
+            </article>
+          </div>
+
+          <div class="swiper-controls" aria-label="Menu slider controls">
+            <button class="swiper-button-prev" type="button" aria-label="Previous category"></button>
+            <div class="swiper-pagination" aria-hidden="true"></div>
+            <button class="swiper-button-next" type="button" aria-label="Next category"></button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <section class="dish-detail" aria-hidden="true">
+    <button class="detail-backdrop" type="button" tabindex="-1" aria-label="Close dish details"></button>
+    <article class="detail-card" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+      <div class="crystal-field" aria-hidden="true">
+        <span class="crystal-facet one"></span>
+        <span class="crystal-facet two"></span>
+      </div>
+      <button class="detail-close" type="button" aria-label="Close dish details">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="detail-media">
+        <img class="detail-image" src="" alt="" />
+      </div>
+      <div class="detail-copy">
+        <p class="detail-label">Selected Plate</p>
+        <h2 id="detail-title">Dish Name</h2>
+        <p class="detail-description">Dish description</p>
+        <p class="detail-price">€0</p>
+      </div>
+    </article>
+  </section>
+
+  <nav class="mobile-tabs" aria-label="Mobile category tabs">
+    <button class="mobile-tab is-active" type="button" data-slide="0">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M6 17a6 6 0 0 1 12 0" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M12 7.2v2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      Plats
+    </button>
+    <button class="mobile-tab" type="button" data-slide="1">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.5 10h11l-1.1 9H7.6l-1.1-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M8.4 10a3.6 3.6 0 0 1 7.2 0" stroke="currentColor" stroke-width="1.8"/>
+      </svg>
+      Desserts
+    </button>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const desktopDock = document.querySelector(".category-dock");
+    const tabButtons = Array.from(document.querySelectorAll("[data-slide]"));
+    const dishCards = Array.from(document.querySelectorAll(".dish-card"));
+    const detailPanel = document.querySelector(".dish-detail");
+    const detailClose = document.querySelector(".detail-close");
+    const detailBackdrop = document.querySelector(".detail-backdrop");
+    const detailImage = document.querySelector(".detail-image");
+    const detailTitle = document.querySelector("#detail-title");
+    const detailDescription = document.querySelector(".detail-description");
+    const detailPrice = document.querySelector(".detail-price");
+    let previousFocus = null;
+
+    const menuSwiper = new Swiper(".menu-swiper", {
+      slidesPerView: 1,
+      spaceBetween: 28,
+      speed: 760,
+      autoHeight: true,
+      grabCursor: true,
+      resistanceRatio: 0.82,
+      keyboard: {
+        enabled: true
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      },
+      on: {
+        init(swiper) {
+          syncTabs(swiper.activeIndex);
+          revealCards(swiper.activeIndex, swiper);
+        },
+        slideChange(swiper) {
+          syncTabs(swiper.activeIndex);
+          revealCards(swiper.activeIndex, swiper);
+        }
+      }
+    });
+
+    function syncTabs(index) {
+      if (desktopDock) {
+        desktopDock.dataset.active = String(index);
+      }
+
+      tabButtons.forEach((button) => {
+        const isActive = Number(button.dataset.slide) === index;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+    }
+
+    function revealCards(index, swiperInstance = menuSwiper) {
+      const activeSlide = swiperInstance.slides[index];
+      if (!activeSlide) return;
+
+      activeSlide.querySelectorAll(".dish-card").forEach((card, cardIndex) => {
+        card.animate(
+          [
+            { opacity: 0, transform: "translateY(18px)" },
+            { opacity: 1, transform: "translateY(0)" }
+          ],
+          {
+            duration: 520,
+            delay: cardIndex * 55,
+            easing: "cubic-bezier(0.2, 0.85, 0.22, 1)",
+            fill: "both"
+          }
+        );
+      });
+    }
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        menuSwiper.slideTo(Number(button.dataset.slide));
+        document.getElementById("menu").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    function openDishDetail(card) {
+      const image = card.querySelector("img");
+      const title = card.querySelector("h3").textContent.trim();
+      const description = card.querySelector("p").textContent.trim();
+      const price = card.dataset.price || card.querySelector(".dish-price").textContent.trim();
+
+      previousFocus = document.activeElement;
+      detailImage.src = image.currentSrc || image.src;
+      detailImage.alt = image.alt;
+      detailTitle.textContent = title;
+      detailDescription.textContent = description;
+      detailPrice.textContent = price;
+      detailPanel.classList.add("is-open");
+      detailPanel.setAttribute("aria-hidden", "false");
+      document.body.classList.add("detail-open");
+      detailClose.focus({ preventScroll: true });
+    }
+
+    function closeDishDetail() {
+      detailPanel.classList.remove("is-open");
+      detailPanel.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("detail-open");
+
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus({ preventScroll: true });
+      }
+    }
+
+    dishCards.forEach((card) => {
+      card.addEventListener("click", () => openDishDetail(card));
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openDishDetail(card);
+        }
+      });
+    });
+
+    [detailClose, detailBackdrop].forEach((control) => {
+      control.addEventListener("click", closeDishDetail);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && detailPanel.classList.contains("is-open")) {
+        closeDishDetail();
+      }
+    });
+  </script>
+</body>
+</html>
